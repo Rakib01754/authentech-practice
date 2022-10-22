@@ -1,4 +1,9 @@
+import { useContext } from "react"
+import { NavLink } from "react-router-dom"
+import { AuthContext } from "./UserContexts/UserContexts"
+
 const Home = () => {
+  const { user } = useContext(AuthContext)
   return (
     <section>
       <div className=''>
@@ -11,26 +16,37 @@ const Home = () => {
             using email password. Powered by Firebase.!
           </p>
           <div className='flex flex-wrap justify-center'>
-            <button
-              type='button'
-              className='px-8 py-3 m-2 text-lg font-semibold rounded bg-gray-800 hover:bg-gray-700 text-gray-50'
-            >
-              Visit Profile
-            </button>
 
-            <button
-              type='button'
-              className='px-8 py-3 m-2 text-lg font-semibold rounded bg-gray-800 hover:bg-gray-700 text-gray-50'
-            >
-              Login
-            </button>
+            {
+              user && user.uid ? <NavLink to='/profile'>
+                <button
+                  type='button'
+                  className='px-8 py-3 m-2 text-lg font-semibold rounded bg-gray-800 hover:bg-gray-700 text-gray-50'
+                >
+                  Visit Profile
+                </button>
+              </NavLink>
+                :
+                <>
+                  <NavLink to='/login'>
+                    <button
+                      type='button'
+                      className='px-8 py-3 m-2 text-lg font-semibold rounded bg-gray-800 hover:bg-gray-700 text-gray-50'
+                    >
+                      Login
+                    </button>
+                  </NavLink>
+                  <NavLink to='/register'>
+                    <button
+                      type='button'
+                      className='px-8 py-3 m-2 text-lg border rounded border-gray-700 text-gray-900'
+                    >
+                      Register
+                    </button>
+                  </NavLink>
+                </>
+            }
 
-            <button
-              type='button'
-              className='px-8 py-3 m-2 text-lg border rounded border-gray-700 text-gray-900'
-            >
-              Register
-            </button>
           </div>
         </div>
       </div>
